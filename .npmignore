@@ -1,0 +1,8 @@
+./examples
+./tests
+
+# dot-files
+./.*
+
+# git-files
+LICENSE
