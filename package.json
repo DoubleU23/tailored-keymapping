@@ -1,0 +1,25 @@
+{
+  "name": "tailored-keymapping",
+  "version": "1.0.0",
+  "description": "map objectKeys with given keyMap",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DoubleU23/tailored-keymapping.git"
+  },
+  "keywords": [
+    "objectkeys",
+    "keymapping",
+    "tailored-apps",
+    "tailored-digital"
+  ],
+  "author": "Stefan Friedl @ Tailored-Digital",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoubleU23/tailored-keymapping/issues"
+  },
+  "homepage": "https://github.com/DoubleU23/tailored-keymapping#readme"
+}
