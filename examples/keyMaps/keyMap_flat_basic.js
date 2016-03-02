@@ -1,5 +1,5 @@
 const keyMap = {
-	'products': {
+	'test': {
 		'foo': 	'bar',
 		'abc': 	'xyz'
 	}

@@ -1,5 +1,5 @@
 const keyMap = {
-	'products': {
+	'test': {
 		// translate server to client
 		'client': {
 			'foo': 				'bar',
