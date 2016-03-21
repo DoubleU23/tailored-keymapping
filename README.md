@@ -59,6 +59,7 @@ __options__
 ```
 
 ## Roadmap
+* add clean minimalistic example to README
 * setup npm scripts
 * remove lodash as dependecy (?)
 * clean package output
