@@ -4,7 +4,7 @@
   "description": "map objectKeys with given keyMap",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha ./tests/index.js"
+    "test": "./node_modules/mocha/bin/mocha ./tests/index.js --require ./tests/utils/babel-register.js"
   },
   "repository": {
     "type": "git",

@@ -14,6 +14,9 @@ map objectKeys with given keyMap
 * use structure for tailored-package-boilerplate
 * add ES5 version
 
+## Bugs
+* given key overwrites originalkey (depends keyorder) - see tests/tbd.js
+
 ## Usage
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping'; // not ready yet
