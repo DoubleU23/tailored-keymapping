@@ -23,7 +23,7 @@ const keymap = {
 	}
 };
 const keyMapping = new TailoredKeymapping(keymap);
-keyMapping.setMap(otherKeymap)
+// keyMapping.setMap(otherKeymap) // overwrite keymap after initialisation if needed
 let  mappedData = keyMapping.map(payload, {
 		'keymapTree': 'test', // key for subtree of keymap
 		'onlyMappedVars': bool,
