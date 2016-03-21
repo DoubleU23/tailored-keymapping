@@ -16,26 +16,131 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var TailoredKeyMapping = function () {
-	function TailoredKeyMapping(keyMap) {
-		var _this = this;
+/**
+ * Tailoredkeymapping
+ * 	maps objectKeys per given key2keyPairs
+ */
 
-		_classCallCheck(this, TailoredKeyMapping);
+var Tailoredkeymapping = function () {
+	_createClass(Tailoredkeymapping, [{
+		key: 'error',
+		value: function error(msg) {
+			throw new Error('[TailoredKeymapping] ' + msg);
+		}
+	}]);
 
-		this.map = function (data, type, options) {
+	function Tailoredkeymapping(keymap) {
+		_classCallCheck(this, Tailoredkeymapping);
+
+		this.keymap = keymap;
+	}
+
+	_createClass(Tailoredkeymapping, [{
+		key: 'getKeymap',
+		value: function getKeymap() {
+			return this.keymap;
+		}
+	}, {
+		key: 'setKeymap',
+		value: function setKeymap(keymap) {
+			if ((typeof keymap === 'undefined' ? 'undefined' : _typeof(keymap)) !== 'object') this.error('invalid typeof keymap. \'object\' required!');
+			this.keymap = keymap;
+		}
+	}, {
+		key: 'validateKeymap',
+		value: function validateKeymap() {
+			if (!this.keymap) this.error('no keymap defined. You can use \'setkeymap(keymap)\' set a map after initialisation');else if (_typeof(this.keymap) !== 'object') this.error('invalid typeof keymap. \'object\' required!');
+		}
+	}, {
+		key: 'getKeymapTree',
+		value: function getKeymapTree(tree) {
+			var _this = this;
+
+			if (!tree) return this.keymap;
+			var keymapSubtree;
+			if (typeof tree === 'string') {
+				if (!!this.keymap[tree] && _typeof(this.keymap[tree]) === 'object') {
+					keymapSubtree = this.keymap[tree];
+				} else this.error('\'keymap.' + tree + '\' not found or invalid');
+			} else if (tree instanceof Array) {
+				var map = this.keymap,
+				    mapInner = tree.reduce(function (map, subtree, i) {
+					if (!!map[subtree] && _typeof(map[subtree]) === 'object') {
+						return map[subtree];
+					} else {
+						var notFound = tree.slice(0, i + 1).join('.');
+						_this.error('\'keymap.' + notFound + '\' not found or invalid');
+					}
+				}, this.keymap);
+				keymapSubtree = mapInner;
+			} else {
+				this.error('can\'t handle keymapTree of type object');
+			}
+
+			this.setKeymapSubtree(keymapSubtree);
+			return keymapSubtree;
+		}
+	}, {
+		key: 'setKeymapSubtree',
+		value: function setKeymapSubtree(subtree) {
+			this.keymapSubtree = subtree;
+		}
+	}, {
+		key: 'getKeymapSubtree',
+		value: function getKeymapSubtree() {
+			return this.keymapSubtree;
+		}
+	}, {
+		key: 'setOptions',
+		value: function setOptions(options) {
+			this.options = _lodash2.default.assign({},
+			// merge default options ...
+			{ onlyMappedVars: false, callback: '', keymapTree: '' },
+			// ... with given options || callbackFn
+			typeof options === 'function' ? { 'callback': options } : options);
+			return this.options;
+		}
+
+		/**
+   * MapKeys
+   * 	maps objectKeys per given key2keyPairs
+   *
+   * @param  {object} data - given data keyValueMap
+   * @param  {string} type - the subtree of the keymap to use
+   * @param  {object | function} options|callback
+   *                   @option {string} 	mappingType 	- the subsubtree of the keymap to use - default: 'client'
+   *                   @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
+   *                   @option {function} callback 			- function to be called after mapping - called with mapped data
+   * @return {object} mapped KeyValue pairs
+   *
+   * usage (after initiation):
+   * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', {
+   *		'mappingType': 'client'|'server',
+   *		'onlyMappedVars': true|false, // pass unmapped keys?
+   *		callback: (data)=>{return newData}
+   *	});
+   * OR
+   * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', (data)=>{
+   *		// callback function
+   *		// mutate data here after mapping completed
+   *	});
+   */
+
+	}, {
+		key: 'map',
+		value: function map(data, options) {
+			var _this2 = this;
+
 			// last argument = options || callback
-			_this.validateKeyMap();
+			// keymap || error
+			this.validateKeymap();
 
 			// set up vars
-			var _options = _lodash2.default.assign({},
-			// merge default options ...
-			{ mappingType: 'client', onlyMappedVars: false, callback: null },
-			// ... with given options || callbackFn
-			typeof options === 'function' ? { 'callback': options } : options),
-			    dataNew = {},
-
-			// flat or deep map - use mappingType or not
-			map = _typeof(_this.keyMap[0]) === 'object' ? _this.keyMap[type][_options.mappingType] : _this.keyMap[type],
+			var _options = this.setOptions(options),
+			    dataNew = {}
+			// tbd: check whole keymap(+subtree) on construct
+			,
+			    map = this.getKeymapTree(_options.keymapTree),
 			    size = _lodash2.default.size(data),
 			    customFns = {},
 			    counter = 0,
@@ -59,7 +164,7 @@ var TailoredKeyMapping = function () {
 				if (counter >= size) {
 					if (Object.keys(customFns).length) {
 						_lodash2.default.each(customFns, function (v, i) {
-							r = v.apply(_this, [dataNew]);
+							r = v.apply(_this2, [dataNew]);
 							if ((typeof r === 'undefined' ? 'undefined' : _typeof(r)) === 'object')
 								//	return is a "array" - [key, object]
 								dataNew[r[0]] = r[1];else
@@ -68,86 +173,16 @@ var TailoredKeyMapping = function () {
 						});
 					}
 					// callback
-					if (typeof _options.callback === 'function') _options.callback.apply(_this, [dataNew]);
+					if (typeof _options.callback === 'function') _options.callback.apply(_this2, [dataNew]);
 				}
 			});
 			return dataNew;
-		};
-
-		// could be undefined... validateKeyMap called in this.map
-		this.keyMap = keyMap;
-	}
-
-	_createClass(TailoredKeyMapping, [{
-		key: 'validateKeyMap',
-		value: function validateKeyMap(keyMap) {
-			var _keyMap = keyMap || this.keyMap;
-			if (!_keyMap) this.error('no keyMap defined. You can use \'instance.setMap(keyMap)\' set a map after initialisation');else if ((typeof _keyMap === 'undefined' ? 'undefined' : _typeof(_keyMap)) !== 'object') this.error('invalid typeof keyMap. \'object\' required!');
-			return true;
-		}
-
-		/**
-   * MapKeys
-   * 	maps objectKeys per given key2keyPairs
-   *
-   * @param  {(flat) object} data - given data keyValueMap
-   * @param  {string} type - the subtree of the keyMap to use
-   * @param  {object | function} options|callback
-   *                   @option {string} 	mappingType 		- the subsubtree of the keyMap to use - default: 'client'
-   *                   @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
-   *                   @option {funciton} callback 			- function to be called after mapping - called with mapped data
-   * @return {object} mapped KeyValue pairs
-   *
-   * usage (after initiation):
-   * 	let mappedData = keyMapping.map(payload['FLAT_STRUCT'], 'user', {
-   *		'mappingType': 'client'|'server',
-   *		'onlyMappedVars': true|false, // pass unmapped keys?
-   *		callback: (data)=>{return newData}
-   *	});
-   * OR
-   * 	let mappedData = keyMapping.map(payload['FLAT_STRUCT'], 'user', (data)=>{
-   *		// callback function
-   *		// mutate data here after mapping completed
-   *	});
-   */
-
-	}], [{
-		key: 'error',
-		value: function error(msg) {
-			throw new Error('[TailoredKeyMapping] ' + msg);
-		}
-	}, {
-		key: 'setMap',
-		value: function setMap(keyMap) {
-			this.validateKeyMap(keyMap);
-			this.keyMap = keyMap;
 		}
 	}]);
 
-	return TailoredKeyMapping;
+	return Tailoredkeymapping;
 }();
 
-// atm unused
-// export const getMapArgs = (data, map, onlyMappedVars = false) => {
-// 	console.log('calling getMapArgs', data, map, onlyMappedVars);
-// 	return [
-// 		data,
-// 		(v, i) => {
-// 			console.log('mapKeys', v, i);
-// 			if (!onlyMappedVars) data[i] = v;
-// 			if (!!map[i]) data[map[i]] = v;
-// 			console.log('[getMapArgs] return ', data);
-// 			return data;
-// 		}
-// 	];
-// };
-
-// // TBD
-// // use for NESTED objects
-// const mapDeep = (data, type, translateFor) =>
-// 	_.map.apply(_, getMapArgs(data, keyMap[type][translateFor]));
-
-
-exports.default = TailoredKeyMapping;
+exports.default = Tailoredkeymapping;
 
 //# sourceMappingURL=TailoredKeymapping.js.map

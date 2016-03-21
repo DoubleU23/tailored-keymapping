@@ -1,5 +1,7 @@
 import assert						from 'assert'
-import KeyMapping					from '../src/TailoredKeymapping.class.js'
+// import KeyMapping					from '../src/TailoredKeymapping.class.js'
+import KeyMapping					from '../dist/TailoredKeymapping.js'
+
 // keymaps used in tests
 import keymapSubtrees				from './keymaps/keymapSubtrees'
 import keymapBasic					from './keymaps/keymapBasic'
