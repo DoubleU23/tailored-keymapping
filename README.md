@@ -60,12 +60,9 @@ __options__
 
 ## Roadmap
 * add clean minimalistic example to README
-* setup npm scripts
 * remove lodash as dependecy (?)
-* clean package output
-	* npm ignore
-	* ES5 variant in 'dist' folder
 * use structure for tailored-package-boilerplate
+* fix bugs/issues
 
 ## Bugs
 * given key overwrites originalkey (depends on keyorder)  
