@@ -5,6 +5,7 @@ map objectKeys with given keyMap
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping';
 
+// define keymap
 const keymap = {
 	'test': {
 		'oldKey': 	'newKey',
@@ -22,9 +23,15 @@ const keymap = {
 		}
 	}
 };
+
+// create instance
 const keyMapping = new TailoredKeymapping(keymap);
-// keyMapping.setMap(otherKeymap) // overwrite keymap after initialisation if needed
-let  mappedData = keyMapping.map(payload, {
+
+// overwrite keymap after initialisation if needed
+// keyMapping.setMap(otherKeymap)
+
+// process data with given options
+let  mappedData = keyMapping.map(dataToMap, {
 		'keymapTree': 'test', // key for subtree of keymap
 		'onlyMappedVars': bool,
 		/**
@@ -38,8 +45,9 @@ let  mappedData = keyMapping.map(payload, {
 			return data;
 		}
 	 );
+
 // you can also rely on default options and just pass a callback function
-let  mappedData = keyMapping.map(payload, (data)=>newData);
+// let  mappedData = keyMapping.map(payload, (data)=>newData);
 ```
 __options__
 ```JavaScript
