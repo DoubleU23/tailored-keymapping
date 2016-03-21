@@ -185,4 +185,4 @@ var Tailoredkeymapping = function () {
 
 exports.default = Tailoredkeymapping;
 
-//# sourceMappingURL=TailoredKeymapping.js.map
+//# sourceMappingURL=TailoredKeymapping.class.js.map

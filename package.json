@@ -1,12 +1,13 @@
 {
   "name": "tailored-keymapping",
   "author": "Stefan Friedl @ Tailored-Digital",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "map objectKeys with given keyMap",
-  "main": "dist/TailoredKeymapping.js",
+  "main": "dist/TailoredKeymapping.class.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha ./tests/index.js --require ./tests/utils/babel-register.js",
-    "bugs": "./node_modules/mocha/bin/mocha ./tests/bugs.js --require ./tests/utils/babel-register.js"
+    "test": "node_modules/mocha/bin/mocha tests/index.js --require tests/utils/babel-register.js",
+    "bugs": "node_modules/mocha/bin/mocha tests/bugs.js --require tests/utils/babel-register.js",
+    "build": "babel src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
   },
   "repository": {
     "type": "git",
