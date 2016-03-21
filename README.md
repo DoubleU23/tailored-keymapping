@@ -18,8 +18,9 @@ const keymap = {
 		 * @return {any} newValue - new value of the keyName
 		 * @return {array} [newKey,newValue] - new key/value pair
 		 */
-		'keyName': function(data) { // no arrow-function to preserve this context
+		'keyName': function(data) {
 			return ['newKey', newValue];
+			// return newValue; // to use original keyname ('keyName')
 		}
 	}
 };
