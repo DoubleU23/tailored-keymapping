@@ -1,8 +1,9 @@
-./examples
 ./tests
+*.sublime-*
 
 # dot-files
 ./.*
 
 # git-files
 LICENSE
+README.md

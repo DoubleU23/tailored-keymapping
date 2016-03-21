@@ -12,6 +12,7 @@ map objectKeys with given keyMap
 	* npm ignore
 	* lib structure
 * use structure for tailored-package-boilerplate
+* add ES5 version
 
 ## Usage
 ```JavaScript

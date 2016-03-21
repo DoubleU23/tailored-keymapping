@@ -8,7 +8,7 @@ root = true
 
 # We recommend you to keep these unchanged.
 charset = utf-8
-indent_size = 2
+indent_size = 4
 indent_style = tab
 end_of_line = lf
 insert_final_newline = true
