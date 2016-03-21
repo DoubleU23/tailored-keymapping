@@ -1,22 +1,6 @@
 # tailored-keymapping
 map objectKeys with given keyMap
 
-## Roadmap
-* add Gulp
-	* add gulp tasks
-		* build (probably per webpack)
-		* test
-		* eslint
-* setup npm scripts
-* clean package output
-	* npm ignore
-	* lib structure
-* use structure for tailored-package-boilerplate
-* add ES5 version
-
-## Bugs
-* given key overwrites originalkey (depends keyorder) - see tests/tbd.js
-
 ## Usage
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping'; // not ready yet
@@ -65,3 +49,15 @@ __options__
 	callback: null
 },
 ```
+
+## Roadmap
+* setup npm scripts
+* remove lodash as dependecy (?)
+* clean package output
+	* npm ignore
+	* ES5 variant in 'dist' folder
+* use structure for tailored-package-boilerplate
+
+## Bugs
+* given key overwrites originalkey (depends on keyorder)  
+	=> see "npm run bugs" (tests/bugs.js)
