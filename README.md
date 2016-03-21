@@ -3,7 +3,7 @@ map objectKeys with given keyMap
 
 ## Usage
 ```JavaScript
-import TailoredKeymapping from 'tailored-keymapping'; // not ready yet
+import TailoredKeymapping from 'tailored-keymapping';
 
 const keyMap = {
 	'test': {
