@@ -5,7 +5,7 @@ map objectKeys with given keyMap
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping';
 
-const keyMap = {
+const keymap = {
 	'test': {
 		'oldKey': 	'newKey',
 		'foo': 		'bar',
@@ -22,11 +22,11 @@ const keyMap = {
 		}
 	}
 };
-const keyMapping = new TailoredKeymapping(keyMap);
-
-let  mappedData = keyMapping.map(payload, 'subtree', {
-		'mappingType': 'subsubtree', // ignored for 'flat' keyMaps
-		'onlyMappedVars': bool, // pass unmapped keys?
+const keyMapping = new TailoredKeymapping(keymap);
+keyMapping.setMap(otherKeymap)
+let  mappedData = keyMapping.map(payload, {
+		'keymapTree': 'test', // key for subtree of keymap
+		'onlyMappedVars': bool,
 		/**
 		 * callback function
 		 *  mutate data afterwards
@@ -38,15 +38,15 @@ let  mappedData = keyMapping.map(payload, 'subtree', {
 			return data;
 		}
 	 );
-// you can also ignore options and just pass a callback function
-let  mappedData = keyMapping.map(payload, 'subtree', (data)=>newData);
+// you can also rely on default options and just pass a callback function
+let  mappedData = keyMapping.map(payload, (data)=>newData);
 ```
 __options__
 ```JavaScript
 {// defaults
-	mappingType: 'client',
-	onlyMappedVars: false,
-	callback: null
+	onlyMappedVars: false, // bool - pass unmapped vars too?
+	keymapTree: ['subtree', 'subsubtree'], // string || array
+	callback: null // function
 },
 ```
 
