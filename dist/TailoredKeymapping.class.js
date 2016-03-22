@@ -56,15 +56,15 @@ var Tailoredkeymapping = function () {
 		value: function getKeymapTree(tree) {
 			var _this = this;
 
-			if (!tree) return this.keymap;
 			var keymapSubtree;
-			if (typeof tree === 'string') {
+			if (!tree) {
+				keymapSubtree = this.keymap;
+			} else if (typeof tree === 'string') {
 				if (!!this.keymap[tree] && _typeof(this.keymap[tree]) === 'object') {
 					keymapSubtree = this.keymap[tree];
 				} else this.error('\'keymap.' + tree + '\' not found or invalid');
 			} else if (tree instanceof Array) {
-				var map = this.keymap,
-				    mapInner = tree.reduce(function (map, subtree, i) {
+				var mapInner = tree.reduce(function (map, subtree, i) {
 					if (!!map[subtree] && _typeof(map[subtree]) === 'object') {
 						return map[subtree];
 					} else {
@@ -132,6 +132,7 @@ var Tailoredkeymapping = function () {
 			var _this2 = this;
 
 			// last argument = options || callback
+
 			// keymap || error
 			this.validateKeymap();
 

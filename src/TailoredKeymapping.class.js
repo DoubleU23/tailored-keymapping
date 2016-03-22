@@ -19,24 +19,27 @@ export default class Tailoredkeymapping {
 	}
 
 	setKeymap(keymap) {
-		if (typeof keymap !== 'object')
-			this.error('invalid typeof keymap. \'object\' required!')
+		this.validateKeymap(keymap) // maybe throw error
 		this.keymap = keymap
-	};
+		return keymap
+	}
 
-	validateKeymap() {
-		if (!this.keymap)
+	validateKeymap(keymap) {
+		let map = keymap || this.keymap
+		if (!map)
 			this.error('no keymap defined. You can use \'setkeymap(keymap)\' set a map after initialisation')
 		else
-			if (typeof this.keymap !== 'object')
+			if (typeof map !== 'object')
 				this.error('invalid typeof keymap. \'object\' required!')
+		return true
 	}
 
 	getKeymapTree(tree) {
-		if (!tree)
-			return this.keymap
 		var keymapSubtree
-		if (typeof tree === 'string') {
+		if (!tree) {
+			keymapSubtree = this.keymap
+		}
+		else if (typeof tree === 'string') {
 			if (!!this.keymap[tree] && typeof this.keymap[tree] === 'object' ) {
 				keymapSubtree = this.keymap[tree]
 			}
@@ -44,8 +47,7 @@ export default class Tailoredkeymapping {
 				this.error('\'keymap.' + tree + '\' not found or invalid')
 		}
 		else if(tree instanceof Array) {
-			let map 	 = this.keymap
-			,	mapInner = tree.reduce((map, subtree, i) => {
+			let mapInner = tree.reduce((map, subtree, i) => {
 					if (!!map[subtree] && typeof map[subtree] === 'object' ) {
 						return map[subtree]
 					}
@@ -57,6 +59,7 @@ export default class Tailoredkeymapping {
 			keymapSubtree = mapInner
 		}
 		else {
+			// true-value && !Array && !string
 			this.error('can\'t handle keymapTree of type object')
 		}
 

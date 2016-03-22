@@ -29,7 +29,7 @@ const keymap = {
 const keyMapping = new TailoredKeymapping(keymap);
 
 // overwrite keymap after initialisation if needed
-// keyMapping.setMap(otherKeymap)
+// keyMapping.setKeymap(otherKeymap)
 
 // process data with given options
 let  mappedData = keyMapping.map(dataToMap, {
@@ -59,15 +59,18 @@ __options__
 }
 ```
 
-## Roadmap
-* fix bugs
-    * if (!onlyMappedVars) also pass originalKeys
-    * DO NOT overwrite originalKeys (except customFn)
-* add clean minimalistic example to README
-* remove lodash as dependecy (?)
+## TBD
+* until v0.1.5
+    * fix bugs
+    * add clean minimalistic example to README
+* until v0.2.0
+    * remove lodash as dependecy (?)
 * use structure for tailored-package-boilerplate
 * fix bugs/issues
 
 ## Bugs
+* if (!onlyMappedVars) also pass originalKeys
 * given key overwrites originalkey (depends on keyorder)  
     => see "npm run bugs" (tests/bugs.js)
+* assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree -> per string')
+
