@@ -1,6 +1,6 @@
 import assert						from 'assert'
 // import KeyMapping					from '../src/TailoredKeymapping.class.js'
-import KeyMapping					from '../dist/TailoredKeymapping.js'
+import KeyMapping					from '../dist/TailoredKeymapping.class.js'
 
 // keymaps used in tests
 import keymapSubtrees				from './keymaps/keymapSubtrees'
@@ -33,7 +33,6 @@ describe('OPTIONS', ()=> {
 			})
 		})
 
-
 		context('Subtrees', ()=> {
 			context('-> select subtree per string', ()=> {
 				it('should pick the right subtree', function(done) {
@@ -59,7 +58,6 @@ describe('OPTIONS', ()=> {
 					done()
 				})
 			})
-
 			context('-> select wrong subtree (both variants)', ()=> {
 				it('should throw an error', function(done) {
 					var keymapping 	= new KeyMapping(keymapBasic)

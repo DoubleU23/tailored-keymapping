@@ -60,6 +60,9 @@ __options__
 ```
 
 ## Roadmap
+* fix bugs
+    * if (!onlyMappedVars) also pass originalKeys
+    * DO NOT overwrite originalKeys (except customFn)
 * add clean minimalistic example to README
 * remove lodash as dependecy (?)
 * use structure for tailored-package-boilerplate
