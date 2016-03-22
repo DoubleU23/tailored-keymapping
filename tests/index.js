@@ -17,7 +17,7 @@ describe('OPTIONS', ()=> {
 
 	context('Keymap', ()=> {
 
-		context('-> change Keymap after initialisation', ()=> {
+		context('* change Keymap after initialisation', ()=> {
 			it('should process with new map', function(done) {
 				var keymapping 	= new KeyMapping({'nothing': 'nada'})
 				// change keymap
@@ -34,7 +34,7 @@ describe('OPTIONS', ()=> {
 		})
 
 		context('Subtrees', ()=> {
-			context('-> select subtree per string', ()=> {
+			context('* select subtree per string', ()=> {
 				it('should pick the right subtree', function(done) {
 					var keymapping 	= new KeyMapping(keymapSubtrees)
 					,	dataMapped 	= keymapping.map(testData, {
@@ -46,7 +46,7 @@ describe('OPTIONS', ()=> {
 					done()
 				})
 			})
-			context('-> select subtree per array', ()=> {
+			context('* select subtree per array', ()=> {
 				it('should pick the right subtree', function(done) {
 					var keymapping 	= new KeyMapping(keymapSubtrees)
 					,	dataMapped 	= keymapping.map(testData, {
@@ -58,45 +58,56 @@ describe('OPTIONS', ()=> {
 					done()
 				})
 			})
-			context('-> select wrong subtree (both variants)', ()=> {
-				it('should throw an error', function(done) {
-					var keymapping 	= new KeyMapping(keymapBasic)
-					,	dataMapped
-					// subtree per string
-					try {
-						dataMapped 	= keymapping.map(testData, {
-							'keymapTree': 'mykey'
-						})
-					}
-					catch(err) {
-						assert.equal(err.message.indexOf('\'keymap.mykey\' not found or invalid') !== -1, true)
-					}
-					// subtree per array
-					try {
-						dataMapped 	= keymapping.map(testData, {
-							'keymapTree': ['test', 'foo', 'mykey']
-						})
-					}
-					catch(err) {
-						// keymap.test.FOO is invalid (no object) so 'mykey' gets ignored
-						assert.equal(err.message.indexOf('\'keymap.test.foo\' not found or invalid') !== -1, true)
-					}
+			context('* select wrong subtree', ()=> {
+				var keymapping 	= new KeyMapping(keymapBasic)
+				,	dataMapped
 
-					done()
+				context('* per string \'mykey\'', ()=> {
+					it('should throw [Error: [TailoredKeymapping] \'keymap.mykey\' not found or invalid]', function(done) {
+
+						// subtree per string
+						try {
+							dataMapped 	= keymapping.map(testData, {
+								'keymapTree': 'mykey'
+							})
+						}
+						catch(err) {
+							assert.equal(err.message.indexOf('\'keymap.mykey\' not found or invalid') !== -1, true)
+						}
+
+						done()
+					})
 				})
-			})
+				context('* per array [\'test\', \'foo\', \'mykey\']', ()=> {
+					it('should throw [Error: [TailoredKeymapping] \'keymap.test.foo\' not found or invalid]', function(done) {
+						var keymapping 	= new KeyMapping(keymapBasic)
+						,	dataMapped
 
+						try {
+							dataMapped 	= keymapping.map(testData, {
+								'keymapTree': ['test', 'foo', 'mykey']
+							})
+						}
+						catch(err) {
+							// keymap.test.FOO is invalid (no object) so 'mykey' gets ignored
+							assert.equal(err.message.indexOf('\'keymap.test.foo\' not found or invalid') !== -1, true)
+						}
+
+						done()
+					})
+				})
+			}) // ENDOF context('select wrong subtree')
 		}) // ENDOF context('Keymap Subtrees')
 	}) // ENDOF context('Keymaps')
 
 
 
-}) // ENDOF describe('Conversion')
+}) // ENDOF describe('OPTIONS')
 
 
 describe('MAPPING', ()=> {
-	context('map one key to another', ()=> {
-		it('should map \'foo\' to bar', function(done) {
+	context('* map one key to another', ()=> {
+		it('should map \'foo\' to \'bar\'', function(done) {
 			var keymapping 	= new KeyMapping({
 				'foo': 'myKey'
 			})
