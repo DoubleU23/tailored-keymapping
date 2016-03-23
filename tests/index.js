@@ -1,6 +1,6 @@
 import assert						from 'assert'
 // import KeyMapping					from '../src/TailoredKeymapping.class.js'
-import KeyMapping					from '../src/TailoredKeymapping.class.js'
+import KeyMapping					from '../dist/TailoredKeymapping.class.js'
 
 // keymaps used in tests
 import keymapSubtrees				from './keymaps/keymapSubtrees'
@@ -11,6 +11,7 @@ import keymapBasicFlat 				from './keymaps/keymapBasicFlat'
 let testData = {
 	foo: 'foo_content'
 ,	bar: 'bar_content'
+,	empty: ''
 }
 let dataMapped, result
 
@@ -115,10 +116,11 @@ describe('OPTIONS', () => {
 
 describe('MAPPING', ()=> {
 	context('* map one key to another', ()=> {
-		it('should map \'foo\' to \'bar\'', function(done) {
+		it('should map \'foo\' to \'myKey\'', function(done) {
 			let keymapping 	= new KeyMapping({
-				'foo': 'myKey'
-			})
+					'foo': 'myKey'
+				,	'empty': 'emptyNew'
+				})
 			,	dataMapped 	= keymapping.map(testData)
 
 			assert.equal(dataMapped.myKey, 'foo_content')

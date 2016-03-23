@@ -43,13 +43,16 @@ var Tailoredkeymapping = function () {
 	}, {
 		key: 'setKeymap',
 		value: function setKeymap(keymap) {
-			if ((typeof keymap === 'undefined' ? 'undefined' : _typeof(keymap)) !== 'object') this.error('invalid typeof keymap. \'object\' required!');
+			this.validateKeymap(keymap); // maybe throw error
 			this.keymap = keymap;
+			return keymap;
 		}
 	}, {
 		key: 'validateKeymap',
-		value: function validateKeymap() {
-			if (!this.keymap) this.error('no keymap defined. You can use \'setkeymap(keymap)\' set a map after initialisation');else if (_typeof(this.keymap) !== 'object') this.error('invalid typeof keymap. \'object\' required!');
+		value: function validateKeymap(keymap) {
+			var map = keymap || this.keymap;
+			if (!map) this.error('no keymap defined. You can use \'setkeymap(keymap)\' set a map after initialisation');else if ((typeof map === 'undefined' ? 'undefined' : _typeof(map)) !== 'object') this.error('invalid typeof keymap. \'object\' required!');
+			return true;
 		}
 	}, {
 		key: 'getKeymapTree',
@@ -74,6 +77,7 @@ var Tailoredkeymapping = function () {
 				}, this.keymap);
 				keymapSubtree = mapInner;
 			} else {
+				// true-value && !Array && !string
 				this.error('can\'t handle keymapTree of type object');
 			}
 
@@ -132,7 +136,6 @@ var Tailoredkeymapping = function () {
 			var _this2 = this;
 
 			// last argument = options || callback
-
 			// keymap || error
 			this.validateKeymap();
 
@@ -153,9 +156,12 @@ var Tailoredkeymapping = function () {
 
 				if (map[i]) {
 					// check for newKey
-					if (typeof map[i] !== 'function')
+					if (typeof map[i] !== 'function') {
 						// use given key
-						dataNew[map[i]] = v;else
+						dataNew[map[i]] = v;
+						// also pass the old key if
+						if (!_options.onlyMappedVars) dataNew[i] = v;
+					} else
 						// add to customFns
 						customFns[i] = map[i];
 				} else // key not found - take old key

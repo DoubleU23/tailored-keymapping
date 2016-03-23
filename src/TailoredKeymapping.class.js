@@ -123,9 +123,13 @@ export default class Tailoredkeymapping {
 			counter++
 
 			if (map[i]) { // check for newKey
-				if (typeof map[i] !== 'function')
+				if (typeof map[i] !== 'function') {
 					// use given key
 					dataNew[map[i]] = v
+					// also pass the old key if
+					if (!_options.onlyMappedVars)
+						dataNew[i] = v
+				}
 				else
 					// add to customFns
 					customFns[i] = map[i]

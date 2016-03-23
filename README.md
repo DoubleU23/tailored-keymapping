@@ -69,7 +69,7 @@ __options__
 * fix bugs/issues
 
 ## Bugs
-* if (!onlyMappedVars) also pass originalKeys
+* Keys of "empty or false" values are ignored !?
 * given key overwrites originalkey (depends on keyorder)  
     => see "npm run bugs" (tests/bugs.js)
 * assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree -> per string')
