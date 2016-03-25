@@ -112,22 +112,11 @@ var Tailoredkeymapping = function () {
    * @param  {object} data - given data keyValueMap
    * @param  {string} type - the subtree of the keymap to use
    * @param  {object | function} options|callback
-   *                   @option {string} 	mappingType 	- the subsubtree of the keymap to use - default: 'client'
-   *                   @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
-   *                   @option {function} callback 			- function to be called after mapping - called with mapped data
-   * @return {object} mapped KeyValue pairs
+   *     @option {string} 	mappingType 	- the subsubtree of the keymap to use - default: 'client'
+   *     @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
+   *     @option {function} callback 			- function to be called after mapping - called with mapped data
+   *     @return {object} mapped KeyValue pairs
    *
-   * usage (after initiation):
-   * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', {
-   *		'mappingType': 'client'|'server',
-   *		'onlyMappedVars': true|false, // pass unmapped keys?
-   *		callback: (data)=>{return newData}
-   *	});
-   * OR
-   * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', (data)=>{
-   *		// callback function
-   *		// mutate data here after mapping completed
-   *	});
    */
 
 	}, {
@@ -171,16 +160,18 @@ var Tailoredkeymapping = function () {
 				if (counter >= size) {
 					if (Object.keys(customFns).length) {
 						_lodash2.default.each(customFns, function (v, i) {
-							r = v.apply(_this2, [dataNew]);
-							if ((typeof r === 'undefined' ? 'undefined' : _typeof(r)) === 'object')
-								//	return is a "array" - [key, object]
-								dataNew[r[0]] = r[1];else
+							r = v.apply(_this2, [dataNew, data]);
+							if (r instanceof Array) {
+								dataNew[r[0]] = r[1];
+								if (!_options.onlyMappedVars && r[0] !== i) dataNew[i] = r[1];
+							} else
 								// 	return should be a value -> use old key
 								dataNew[i] = r;
 						});
 					}
+					// console.log(_options)
 					// callback
-					if (typeof _options.callback === 'function') _options.callback.apply(_this2, [dataNew]);
+					if (typeof _options.callback === 'function') _options.callback.apply(_this2, [dataNew, data]);
 				}
 			});
 			return dataNew;

@@ -86,6 +86,7 @@ __options__
 ```
 
 ## TBD
+* allow keymap as array to just FILTER the keys needed (onlyMappedVars: true)!?
 * until v0.1.5
     * finish tests
     * fix bugs
