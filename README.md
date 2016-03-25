@@ -1,6 +1,32 @@
 # tailored-keymapping
 map objectKeys with given keyMap
 
+## Examples
+```JavaScript
+import KeyMapping from 'tailored-keymapping'
+const keyMapping = new KeyMapping({foo: 'bar'})
+
+// basic flat keymap
+let dataMapped = keyMapping.map({foo: 'foo_content'})
+console.log(dataMapped) // => {bar: 'foo_content', foo: 'foo_content'}
+
+// basic deep keymap
+keyMapping.setKeymap({sub: {subsub: {foo: 'bar'}}})
+dataMapped = keyMapping.map(
+    {foo: 'foo_content'}, {
+        keymapTree: ['sub', 'subsub']
+    ,   onlyMappedVars: true
+    }
+)
+console.log(dataMapped) // => {bar: 'foo_content'}
+
+// custom functions
+keyMapping.setKeymap({'newKey': (data)=>data.foo+'-'+data.bar})
+dataMapped = keyMapping.map({foo: 'foo', bar: 'bar'}, {onlyMappedVars: true})
+console.log(datMapped) // => {newKey: 'foo-bar'}
+
+```
+
 ## Usage
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping';
@@ -29,7 +55,7 @@ const keymap = {
 const keyMapping = new TailoredKeymapping(keymap);
 
 // overwrite keymap after initialisation if needed
-// keyMapping.setKeymap(otherKeymap)
+keyMapping.setKeymap(otherKeymap)
 
 // process data with given options
 let  mappedData = keyMapping.map(dataToMap, {
@@ -41,14 +67,14 @@ let  mappedData = keyMapping.map(dataToMap, {
          * @param  {object} data - mapped data object (after custom functions)
          * @return {object} newData - mutated data object
          */
-        callback: (data) => {
+        callback: function(data) { // no arrowFn to prevent this-context
             data.dynamicVar = data.foo + data.abc;
             return data;
         }
      );
 
 // you can also rely on default options and just pass a callback function
-// let  mappedData = keyMapping.map(payload, (data)=>newData);
+mappedData = keyMapping.map(payload, (data)=>newData);
 ```
 __options__
 ```JavaScript
@@ -61,8 +87,8 @@ __options__
 
 ## TBD
 * until v0.1.5
+    * finish tests
     * fix bugs
-    * add clean minimalistic example to README
 * until v0.2.0
     * remove lodash as dependecy (?)
 * use structure for tailored-package-boilerplate
