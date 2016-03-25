@@ -155,7 +155,7 @@ describe('MAPPING', ()=> {
 				})
 			})
 			context('* return new valueKey-pair', ()=>{
-				it('should map \'data.abc\'+\'-\'+\'data.bar\' to \'returnValue\' key', function(done) {
+				it('should map \'abc\'+\'-\'+\'bar\' to \'returnValue\' key', function(done) {
 					assert.equal(dataMapped.returnValue, 'xyz-foo_content')
 					done()
 				})
