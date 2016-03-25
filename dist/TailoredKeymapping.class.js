@@ -45,7 +45,7 @@ var Tailoredkeymapping = function () {
 		value: function setKeymap(keymap) {
 			this.validateKeymap(keymap); // maybe throw error
 			this.keymap = keymap;
-			return keymap;
+			return this;
 		}
 	}, {
 		key: 'validateKeymap',

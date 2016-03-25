@@ -1,18 +1,26 @@
-import assert						from 'assert'
-// import KeyMapping					from '../src/TailoredKeymapping.class.js'
-import KeyMapping					from '../dist/TailoredKeymapping.class.js'
+/**
+ * bugs:
+ * 	broken context
+ * 		doesn't set the keymap for underlying contexts...
+ * 		i use IIFE to inject context data (see CUSTOM MAPPING FUNCTIONS f.e.)
+ * 	assert.throws
+ * 		doesn't fail on wrong error msg (third parameter) (see "select wrong subtree")
+ */
+import assert				from 'assert'
+// import KeyMapping			from '../src/TailoredKeymapping.class'
+import KeyMapping		from '../dist/TailoredKeymapping.class'
 
 // keymaps used in tests
-import keymapSubtrees				from './keymaps/keymapSubtrees'
-import keymapBasic					from './keymaps/keymapBasic'
-import keymapBasicFlat 				from './keymaps/keymapBasicFlat'
+import keymapBasicFlat		from './keymaps/keymapBasicFlat'
+import keymapBasicTree		from './keymaps/keymapBasicTree'
+import keymapBasicSubTree	from './keymaps/keymapBasicSubTree'
+import keymapCustomFnTree	from './keymaps/keymapCustomFnTree'
+// testData
+import dataBasicFlat		from './data/dataBasicFlat'
+import dataCustomFnTree		from './data/dataCustomFnTree'
 
 // const keymapping = new KeyMapping(keymapBasic)
-let testData = {
-	foo: 'foo_content'
-,	bar: 'bar_content'
-,	empty: ''
-}
+
 let dataMapped, result
 
 // global instance with 'fake'-keymap
@@ -27,7 +35,7 @@ describe('OPTIONS', () => {
 				// change keymap
 				_keymapping.setKeymap(keymapBasicFlat)
 				// process afterwards
-				dataMapped 	= _keymapping.map(testData)
+				dataMapped 	= _keymapping.map(dataBasicFlat)
 				result 		= _keymapping.getKeymapSubtree()
 				// check keymap subtree
 				assert.equal(result.foo, 'bar')
@@ -35,13 +43,11 @@ describe('OPTIONS', () => {
 			})
 		})
 		context('Subtrees', ()=> {
-			console.log('getKEymap outer', _keymapping.getKeymap())
-			// broken context - doesn't set the keymap for underlying contexts... i dont know why :(
-			// _keymapping.setKeymap(keymapSubtrees)
+			// _keymapping.setKeymap(keymapBasicSubTree)
 			context('* select subtree per string', ()=> {
 				it('should pick the right subtree', (done) => {
-					_keymapping.setKeymap(keymapSubtrees)
-					dataMapped 	= _keymapping.map(testData, {
+					_keymapping.setKeymap(keymapBasicSubTree)
+					dataMapped 	= _keymapping.map(dataBasicFlat, {
 						'keymapTree': 'test'
 					})
 					result 		= _keymapping.getKeymapSubtree()
@@ -52,8 +58,8 @@ describe('OPTIONS', () => {
 			})
 			context('* select subtree per array', ()=> {
 				it('should pick the right subtree', (done) => {
-					_keymapping.setKeymap(keymapSubtrees)
-					dataMapped 	= _keymapping.map(testData, {
+					_keymapping.setKeymap(keymapBasicSubTree)
+					dataMapped 	= _keymapping.map(dataBasicFlat, {
 						'keymapTree': ['test', 'subtree']
 					})
 					result 		= _keymapping.getKeymapSubtree()
@@ -69,15 +75,15 @@ describe('OPTIONS', () => {
 						//
 						// assert.throws(()=>{
 						// 	_keymapping.setKeymap(keymapBasic)
-						// 	dataMapped 	= _keymapping.map(testData, {
+						// 	dataMapped 	= _keymapping.map(dataBasicFlat, {
 						// 		'keymapTree': 'mykey'
 						// 	})
 						// }, Error, '\'keymap.mykey\' not found or invalid')
 
 						let _err = {message: ''}
 						try {
-							_keymapping.setKeymap(keymapBasic)
-							dataMapped 	= _keymapping.map(testData, {
+							_keymapping.setKeymap(keymapBasicTree)
+							dataMapped 	= _keymapping.map(dataBasicFlat, {
 								'keymapTree': 'mykey'
 							})
 						}
@@ -92,8 +98,8 @@ describe('OPTIONS', () => {
 					it('should throw [Error: [TailoredKeymapping] \'keymap.test.foo\' not found or invalid]', function(done) {
 						let _err = {message: ''}
 						try {
-							_keymapping.setKeymap(keymapBasic)
-							dataMapped 	= _keymapping.map(testData, {
+							_keymapping.setKeymap(keymapBasicTree)
+							dataMapped 	= _keymapping.map(dataBasicFlat, {
 								'keymapTree': ['test', 'foo', 'mykey']
 							})
 						}
@@ -113,20 +119,38 @@ describe('OPTIONS', () => {
 
 }) // ENDOF describe('OPTIONS')
 
-
 describe('MAPPING', ()=> {
 	context('* map one key to another', ()=> {
 		it('should map \'foo\' to \'myKey\'', function(done) {
-			let keymapping 	= new KeyMapping({
-					'foo': 'myKey'
-				,	'empty': 'emptyNew'
-				})
-			,	dataMapped 	= keymapping.map(testData)
+			_keymapping.setKeymap({'foo': 'myKey'})
+			dataMapped 	= _keymapping.map(dataBasicFlat)
 
 			assert.equal(dataMapped.myKey, 'foo_content')
-
 			done()
 		})
 	})
+
+	/**
+	 * CUSTOM MAPPING FUNCTIONS
+	 * 	inject context data (DRY) per IIFE
+	 */
+	_keymapping.setKeymap(keymapCustomFnTree)
+	dataMapped = _keymapping.map(dataCustomFnTree, {keymapTree: ['test', 'client']})
+	context('* custom mapping functions', ((dataMapped)=>
+		(()=>{ // FN returned by IIFE
+			context('* return new value which depends on other key', ()=>{
+				it('should assign \'foo\'s content to \'bar\' key', function(done) {
+					assert.equal(dataMapped.bar, 'foo_content')
+					done()
+				})
+				it('should map \'data.abc+\'-\'+data.bar\' to \'returnValue\' key', function(done) {
+					assert.equal(dataMapped.returnValue, 'xyz-foo_content')
+					done()
+				})
+			})
+
+		})
+	)(dataMapped))
+
 }) // ENDOF describe('OPTIONS')
 

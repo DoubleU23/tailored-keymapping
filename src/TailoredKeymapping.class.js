@@ -21,7 +21,7 @@ export default class Tailoredkeymapping {
 	setKeymap(keymap) {
 		this.validateKeymap(keymap) // maybe throw error
 		this.keymap = keymap
-		return keymap
+		return this
 	}
 
 	validateKeymap(keymap) {
