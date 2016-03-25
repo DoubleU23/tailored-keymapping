@@ -7,14 +7,15 @@
  * 		doesn't fail on wrong error msg (third parameter) (see "select wrong subtree")
  */
 import assert					from 'assert'
-import KeyMapping			from '../src/TailoredKeymapping.class'
+import KeyMapping				from '../src/TailoredKeymapping.class'
 // import KeyMapping				from '../dist/TailoredKeymapping.class'
 
 // keymaps used in tests
 import keymapBasicFlat			from './keymaps/keymapBasicFlat'
 import keymapBasicTree			from './keymaps/keymapBasicTree'
 import keymapBasicSubTree		from './keymaps/keymapBasicSubTree'
-import keymapCustomFnTree		from './keymaps/keymapCustomFnTree'
+import keymapCustomFnTree
+,	{keymapCustomFnCallback}	from './keymaps/keymapCustomFnTree'
 // testData
 import dataBasicFlat			from './data/dataBasicFlat'
 import dataCustomFnTree			from './data/dataCustomFnTree'
@@ -132,15 +133,9 @@ describe('MAPPING', ()=> {
 	 * CUSTOM MAPPING FUNCTIONS
 	 * 	inject context data (DRY) per IIFE
 	 */
-	// try {
-		_keymapping.setKeymap(keymapCustomFnTree)
-		dataMapped = _keymapping.map(dataCustomFnTree, {keymapTree: ['test', 'client']})
-	// }
-	// catch(err) {
-	// 	console.log(err)
-	// }
-	console.log(dataMapped)
-	context('* custom mapping functions (with access to mappedData object)', ((dataMapped)=>
+	_keymapping.setKeymap(keymapCustomFnTree)
+	dataMapped = _keymapping.map(dataCustomFnTree, {keymapTree: ['test', 'client']})
+	context('* custom mapping functions (with access to mappedData object)', ((dataMapped) =>
 		(()=>{ // FN returned by IIFE
 			context('* return new value', ()=>{
 				it('should assign \'foo\'s content to \'bar\' key', function(done) {
@@ -148,21 +143,18 @@ describe('MAPPING', ()=> {
 					done()
 				})
 			})
-			context('* return new value (depends on mapped key)', ()=>{
-				it('should assign \'newKey\'+\'-\'+\'abc\' to \'returnValueMapped\'', function(done) {
-					assert.equal(dataMapped.returnValueMapped, 'xyz-xyz')
-					done()
-				})
-			})
-			context('* return new valueKey-pair', ()=>{
+			context('* return new valueKey-pair', ( )=> {
 				it('should map \'abc\'+\'-\'+\'bar\' to \'returnValue\' key', function(done) {
 					assert.equal(dataMapped.returnValue, 'xyz-foo_content')
 					done()
 				})
 			})
-
-			//
-			// dataMapped.returnKeyValueMapped equals 'abc-foo_content'
+			context('* return new value (depends on mapped key)', () => {
+				it('should assign \'newKey\'+\'-\'+\'abc\' to \'returnValueMapped\'', function(done) {
+					assert.equal(dataMapped.returnValueMapped, 'xyz-xyz')
+					done()
+				})
+			})
 
 		})
 	)(dataMapped))
@@ -170,24 +162,21 @@ describe('MAPPING', ()=> {
 	/**
 	 * CALLBACK FUNCTION
 	 */
-	// _keymapping.setKeymap(keymapCustomFnTree)
-	// dataMapped = _keymapping.map(dataCustomFnTree, {keymapTree: ['test', 'client']})
-	// context('* callback function', ((dataMapped)=>
-	// 	(()=>{ // FN returned by IIFE
-	// 		context('* return new value which depends on other key', ()=>{
-	// 			it('should assign \'foo\'s content to \'bar\' key', function(done) {
-	// 				assert.equal(dataMapped.bar, 'foo_content')
-	// 				done()
-	// 			})
-	// 			it('should map \'data.abc+\'-\'+data.bar\' to \'returnValue\' key', function(done) {
-	// 				assert.equal(dataMapped.returnValue, 'xyz-foo_content')
-	// 				done()
-	// 			})
-	// 		})
-
-
-	// 	})
-	// )(dataMapped))
+	// keymap already set to 'keymapCustomFnTree'
+	dataMapped = _keymapping.map(dataCustomFnTree, {
+		keymapTree: ['test', 'client']
+	,	callback: keymapCustomFnCallback
+	})
+	context('* callback function', ((dataMapped)=>
+		(()=>{ // FN returned by IIFE
+			context('* return new value which depends on other key', () => {
+				it('should assign \'foo\'s content to \'bar\' key', function(done) {
+					assert.equal(dataMapped.callbackGenerated, 'xyz-foo_content-foo_content')
+					done()
+				})
+			})
+		})
+	)(dataMapped))
 
 }) // ENDOF describe('OPTIONS')
 

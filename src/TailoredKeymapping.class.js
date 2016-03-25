@@ -142,7 +142,6 @@ export default class Tailoredkeymapping {
 				if (Object.keys(customFns).length) {
 					_.each(customFns, (v, i)=> {
 						r = v.apply(this, [dataNew, data])
-						console.log('return value', typeof r, r)
 						if (typeof r === 'object') {
 						//	return is a "array" - [key, object]
 							dataNew[r[0]] = r[1]
@@ -154,6 +153,7 @@ export default class Tailoredkeymapping {
 							dataNew[i] = r
 					})
 				}
+				// console.log(_options)
 				// callback
 				if (typeof _options.callback === 'function')
 					_options.callback.apply(this, [dataNew, data])
