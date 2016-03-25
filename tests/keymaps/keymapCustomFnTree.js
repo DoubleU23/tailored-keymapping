@@ -10,10 +10,13 @@ const keyMap = {
 				data.abc + '-' + data.foo
 		,	'returnValueMapped': 	(data, originalData) =>
 				data.newKey + '-' + data.abc
-		,	'returnKeyValue': 		(data, originalData) =>{
+		,	'returnKeyValue': 		(data, originalData) => {
 				return ['newKeyValue', data.foo + '-' + data.bar]
 			}
-		,	'test':  				(data, originalData)=>data.returnKeyValue
+		,	'test':  				(data, originalData)=> data.returnKeyValue
+		// i just store the callback here - doesn't have to be in keyMap
+		,	'callback': 			(data, originalData) =>
+				originalData.abc + '-' + data.newKeyValue
 		}
 	}
 }
