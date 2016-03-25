@@ -140,11 +140,15 @@ export default class Tailoredkeymapping {
 			// LAST STEP
 			if (counter >= size) {
 				if (Object.keys(customFns).length) {
-					_.each(customFns, (v, i)=>{
-						r = v.apply(this, [dataNew])
-						if (typeof r === 'object')
+					_.each(customFns, (v, i)=> {
+						r = v.apply(this, [dataNew, data])
+						console.log('return value', typeof r, r)
+						if (typeof r === 'object') {
 						//	return is a "array" - [key, object]
 							dataNew[r[0]] = r[1]
+							if ( !_options.onlyMappedVars && r[0] !== i)
+								dataNew[i] = r[1]
+						}
 						else
 						// 	return should be a value -> use old key
 							dataNew[i] = r
@@ -152,7 +156,7 @@ export default class Tailoredkeymapping {
 				}
 				// callback
 				if (typeof _options.callback === 'function')
-					_options.callback.apply(this, [dataNew])
+					_options.callback.apply(this, [dataNew, data])
 			}
 		})
 		return dataNew
