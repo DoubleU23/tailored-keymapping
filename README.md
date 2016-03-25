@@ -29,14 +29,14 @@ console.log(datMapped) // => {newKey: 'foo-bar'}
 
 ## Usage
 ```JavaScript
-import TailoredKeymapping from 'tailored-keymapping';
+import TailoredKeymapping from 'tailored-keymapping'
 
 // define keymap
 const keymap = {
     'test': {
-        'oldKey':   'newKey',
-        'foo':      'bar',
-        'abc':      'xyz'
+        'oldKey':   'newKey'
+    ,   'foo':      'bar'
+    ,   'abc':      'xyz'
         /**
          * custom mapping function
          *  called after mapping loop
@@ -44,37 +44,37 @@ const keymap = {
          * @return {any} newValue - new value of the keyName
          * @return {array} [newKey,newValue] - new key/value pair
          */
-        'keyName': function(data) {
-            return ['newKey', newValue];
+    ,   'keyName': function(data) {
+            return ['newKey', newValue]
             // return newValue; // to use original keyname ('keyName')
         }
     }
-};
+}
 
 // create instance
-const keyMapping = new TailoredKeymapping(keymap);
+const keyMapping = new TailoredKeymapping(keymap)
 
 // overwrite keymap after initialisation if needed
 keyMapping.setKeymap(otherKeymap)
 
 // process data with given options
-let  mappedData = keyMapping.map(dataToMap, {
-        'keymapTree': 'test', // key for subtree of keymap
-        'onlyMappedVars': bool,
+let mappedData = keyMapping.map(dataToMap, {
+       'keymapTree': 'test' // key for subtree of keymap
+    ,  'onlyMappedVars': bool
         /**
          * callback function
          *  mutate data afterwards
          * @param  {object} data - mapped data object (after custom functions)
          * @return {object} newData - mutated data object
          */
-        callback: function(data) { // no arrowFn to prevent this-context
+    ,   callback: function(data) { // no arrowFn to prevent this-context
             data.dynamicVar = data.foo + data.abc;
             return data;
         }
-     );
+     )
 
 // you can also rely on default options and just pass a callback function
-mappedData = keyMapping.map(payload, (data)=>newData);
+mappedData = keyMapping.map(payload, (data)=>newData)
 ```
 __options__
 ```JavaScript
