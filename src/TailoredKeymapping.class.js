@@ -87,22 +87,11 @@ export default class Tailoredkeymapping {
 	 * @param  {object} data - given data keyValueMap
 	 * @param  {string} type - the subtree of the keymap to use
 	 * @param  {object | function} options|callback
-	 *                   @option {string} 	mappingType 	- the subsubtree of the keymap to use - default: 'client'
-	 *                   @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
-	 *                   @option {function} callback 			- function to be called after mapping - called with mapped data
-	 * @return {object} mapped KeyValue pairs
+	 *     @option {string} 	mappingType 	- the subsubtree of the keymap to use - default: 'client'
+	 *     @option {bool} 	onlyMappedVars 	- pass unmapped keys? - default: true
+	 *     @option {function} callback 			- function to be called after mapping - called with mapped data
+	 *     @return {object} mapped KeyValue pairs
 	 *
-	 * usage (after initiation):
-	 * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', {
-	 *		'mappingType': 'client'|'server',
-	 *		'onlyMappedVars': true|false, // pass unmapped keys?
-	 *		callback: (data)=>{return newData}
-	 *	});
-	 * OR
-	 * 	let mappedData = keymapping.map(payload['FLAT_STRUCT'], 'user', (data)=>{
-	 *		// callback function
-	 *		// mutate data here after mapping completed
-	 *	});
 	 */
 	map(data, options) { // last argument = options || callback
 		// keymap || error
@@ -142,8 +131,7 @@ export default class Tailoredkeymapping {
 				if (Object.keys(customFns).length) {
 					_.each(customFns, (v, i)=> {
 						r = v.apply(this, [dataNew, data])
-						if (typeof r === 'object') {
-						//	return is a "array" - [key, object]
+						if (r instanceof Array) {
 							dataNew[r[0]] = r[1]
 							if ( !_options.onlyMappedVars && r[0] !== i)
 								dataNew[i] = r[1]
