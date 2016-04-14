@@ -26,7 +26,6 @@ let dataMapped, result
 const _keymapping = new KeyMapping({nothing: null})
 
 describe('OPTIONS', () => {
-
 	context('Keymap', ()=> {
 
 		context('* change Keymap after initialisation', ()=> {
@@ -179,8 +178,8 @@ describe('MAPPING', ()=> {
 
 	/**
 	 * CALLBACK FUNCTION
+	 * 	keymap already set to 'keymapCustomFnTree'
 	 */
-	// keymap already set to 'keymapCustomFnTree'
 	dataMapped = _keymapping.map(dataCustomFnTree, {
 		keymapTree: ['test', 'client']
 	,	callback: keymapCustomFnCallback
