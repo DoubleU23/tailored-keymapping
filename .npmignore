@@ -1,5 +1,6 @@
 ./tests
 *.sublime-*
+*.glue
 
 # dot-files
 ./.*
