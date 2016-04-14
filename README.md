@@ -1,5 +1,6 @@
-# tailored-keymapping
+# tailored-keymapping [![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping)
 map objectKeys with given keyMap
+
 
 ## Examples
 ```JavaScript
@@ -95,14 +96,21 @@ mappedData = keyMapping.map(payload, (data)=>newData)
 }
 ```
 
+## Roadmap
+* 0.1.45    - added travis build hook
+* 0.1.44    - fixxed bug (mappedKey > originalKey)
+* 0.1.41    - added callback tests
+* 0.1.4     - added tests
+* 0.1.2     - dist folder is new entrypoint
+
 ## TBD
 * assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree')
 * keymap handling in constructor !?
 * until v0.1.5
-    * finish tests
+    * finish basic tests
 * until v0.2.0
     * remove lodash as dependecy (?)
 
 ## Bugs
-if you find a bug please report them [@Issues](https://github.com/DoubleU23/tailored-keymapping/issues
+if you find a bug, please report them [@Issues](https://github.com/DoubleU23/tailored-keymapping/issues
 )
