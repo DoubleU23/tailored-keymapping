@@ -115,8 +115,8 @@ export default class Tailoredkeymapping {
 				if (typeof map[i] !== 'function') {
 					// use given key
 					dataNew[map[i]] = v
-					// also pass the old key if
-					if (!_options.onlyMappedVars)
+					// also pass the old key ?
+					if (!_options.onlyMappedVars && dataNew[i] === undefined)
 						dataNew[i] = v
 				}
 				else
@@ -124,7 +124,8 @@ export default class Tailoredkeymapping {
 					customFns[i] = map[i]
 			}
 			else // key not found - take old key
-				if (!_options.onlyMappedVars) dataNew[i] = v
+				if (!_options.onlyMappedVars && dataNew[i] === undefined)
+					dataNew[i] = v
 
 			// LAST STEP
 			if (counter >= size) {

@@ -1,7 +1,7 @@
 {
 	"name": "tailored-keymapping",
 	"author": "Stefan Friedl @ Tailored-Digital",
-	"version": "0.1.43",
+	"version": "0.1.44",
 	"description": "map objectKeys with given keyMap",
 	"main": "dist/TailoredKeymapping.class.js",
 	"scripts": {

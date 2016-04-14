@@ -4,6 +4,7 @@ map objectKeys with given keyMap
 ## Examples
 ```JavaScript
 import KeyMapping from 'tailored-keymapping'
+// create instance with keyMap
 const keyMapping = new KeyMapping({foo: 'bar'})
 
 // basic flat keymap
@@ -13,21 +14,29 @@ console.log(dataMapped) // => {bar: 'foo_content', foo: 'foo_content'}
 // basic deep keymap
 keyMapping.setKeymap({sub: {subsub: {foo: 'bar'}}})
 dataMapped = keyMapping.map(
-    {foo: 'foo_content'}, {
-        keymapTree: ['sub', 'subsub']
+    {foo: 'foo_content'}
+,   {   keymapTree: ['sub', 'subsub']
     ,   onlyMappedVars: true
     }
 )
 console.log(dataMapped) // => {bar: 'foo_content'}
 
 // custom functions
-keyMapping.setKeymap({'newKey': (data)=>data.foo+'-'+data.bar})
-dataMapped = keyMapping.map({foo: 'foo', bar: 'bar'}, {onlyMappedVars: true})
+keyMapping.setKeymap({
+    'newKey': (data) => data.foo+'-'+data.bar
+})
+dataMapped = keyMapping.map(
+    {foo: 'foo', bar: 'bar'} // data2map
+,   {onlyMappedVars: true}  // options or callback
+)
 console.log(datMapped) // => {newKey: 'foo-bar'}
 
 ```
+> for more examples have a look at the mocha tests
 
 ## Usage
+    npm install tailored-keymapping --save
+
 ```JavaScript
 import TailoredKeymapping from 'tailored-keymapping'
 
@@ -59,15 +68,16 @@ keyMapping.setKeymap(otherKeymap)
 
 // process data with given options
 let mappedData = keyMapping.map(dataToMap, {
-       'keymapTree': 'test' // key for subtree of keymap
-    ,  'onlyMappedVars': bool
+       'keymapTree':        'test' // || ['sub', 'subsub']
+    ,  'onlyMappedVars':    true
         /**
          * callback function
-         *  mutate data afterwards
-         * @param  {object} data - mapped data object (after custom functions)
+         *  mutate data after mapping
+         * @param  {object} dataMapped   - mapped data object (after custom functions)
+         * @param  {object} dataOriginal - mapped data object (after custom functions)
          * @return {object} newData - mutated data object
          */
-    ,   callback: function(data) { // no arrowFn to prevent this-context
+    ,   callback: function(data) {
             data.dynamicVar = data.foo + data.abc;
             return data;
         }
@@ -76,26 +86,23 @@ let mappedData = keyMapping.map(dataToMap, {
 // you can also rely on default options and just pass a callback function
 mappedData = keyMapping.map(payload, (data)=>newData)
 ```
-__options__
+### default options
 ```JavaScript
-{// defaults
-    onlyMappedVars: false, // bool - pass unmapped vars too?
-    keymapTree: ['subtree', 'subsubtree'], // string || array
-    callback: null // function
+{
+    onlyMappedVars: false   // drop old keys?
+,   keymapTree:     ''      // keymaps subtree to use
+,   callback:       null    // mutate data after mapping
 }
 ```
 
 ## TBD
-* allow keymap as array to just FILTER the keys needed (onlyMappedVars: true)!?
+* assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree')
+* keymap handling in constructor !?
 * until v0.1.5
     * finish tests
-    * fix bugs
 * until v0.2.0
     * remove lodash as dependecy (?)
-* fix bugs/issues
 
 ## Bugs
-* given key overwrites originalkey (depends on keyorder)  
-    => see "npm run bugs" (tests/bugs.js)
-* assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree')
-
+if you find a bug please report them [@Issues](https://github.com/DoubleU23/tailored-keymapping/issues
+)

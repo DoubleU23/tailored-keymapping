@@ -7,8 +7,8 @@
  * 		doesn't fail on wrong error msg (third parameter) (see "select wrong subtree")
  */
 import assert					from 'assert'
-import KeyMapping				from '../src/TailoredKeymapping.class'
-// import KeyMapping				from '../dist/TailoredKeymapping.class'
+// import KeyMapping				from '../src/TailoredKeymapping.class'
+import KeyMapping				from '../dist/TailoredKeymapping.class'
 
 // keymaps used in tests
 import keymapBasicFlat			from './keymaps/keymapBasicFlat'
@@ -73,11 +73,11 @@ describe('OPTIONS', () => {
 						// doesn't fail on wrong error msg (third parameter)
 						//
 						// assert.throws(()=>{
-						// 	_keymapping.setKeymap(keymapBasic)
+						// 	_keymapping.setKeymap(keymapBasicTree)
 						// 	dataMapped 	= _keymapping.map(dataBasicFlat, {
 						// 		'keymapTree': 'mykey'
 						// 	})
-						// }, Error, '\'keymap.mykey\' not found or invalid')
+						// }, Error, '\'keymap.mykey\' not found or invalid blabla-test wrong errormsg')
 
 						let _err = {message: ''}
 						try {
@@ -125,6 +125,24 @@ describe('MAPPING', ()=> {
 			dataMapped 	= _keymapping.map(dataBasicFlat)
 
 			assert.equal(dataMapped.myKey, 'foo_content')
+			done()
+		})
+	})
+	context('* originalKey should not overwrite mappedKey', ()=> {
+		it("should map foo's content to 'bar'", function(done) {
+			// if (key is defined) take mappedData
+			var data 		= {
+					'foo': 'foo_content'
+				,	'bar': 'bar_content'
+				}
+			,	keymapping 	= new KeyMapping({
+					'foo': 	'bar'
+				,	'abc': 	'xyz'
+				})
+			,	dataNew 	= keymapping.map(data, {onlyMappedVars: false})
+
+			assert.equal(dataNew.bar, 'foo_content')
+
 			done()
 		})
 	})
@@ -177,6 +195,7 @@ describe('MAPPING', ()=> {
 			})
 		})
 	)(dataMapped))
+
 
 }) // ENDOF describe('OPTIONS')
 

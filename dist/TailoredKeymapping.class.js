@@ -148,13 +148,13 @@ var Tailoredkeymapping = function () {
 					if (typeof map[i] !== 'function') {
 						// use given key
 						dataNew[map[i]] = v;
-						// also pass the old key if
-						if (!_options.onlyMappedVars) dataNew[i] = v;
+						// also pass the old key ?
+						if (!_options.onlyMappedVars && dataNew[i] === undefined) dataNew[i] = v;
 					} else
 						// add to customFns
 						customFns[i] = map[i];
 				} else // key not found - take old key
-					if (!_options.onlyMappedVars) dataNew[i] = v;
+					if (!_options.onlyMappedVars && dataNew[i] === undefined) dataNew[i] = v;
 
 				// LAST STEP
 				if (counter >= size) {
