@@ -97,6 +97,8 @@ mappedData = keyMapping.map(payload, (data)=>newData)
 ```
 
 ## Roadmap
+* 0.2.0     - finish basic tests
+* 0.1.6     - remove lodash dependecy (?)
 * 0.1.45    - added travis build hook
 * 0.1.44    - fixxed bug (mappedKey > originalKey)
 * 0.1.41    - added callback tests
@@ -106,10 +108,6 @@ mappedData = keyMapping.map(payload, (data)=>newData)
 ## TBD
 * assert.throws doesn't fail on wrong Error msg (@tests: 'select wrong subtree')
 * keymap handling in constructor !?
-* until v0.1.5
-    * finish basic tests
-* until v0.2.0
-    * remove lodash as dependecy (?)
 
 ## Bugs
 if you find a bug, please report them [@Issues](https://github.com/DoubleU23/tailored-keymapping/issues
