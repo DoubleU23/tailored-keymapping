@@ -1,2 +1,10 @@
+# env settings
 language: node_js
 node_js: '5.7'
+# travis script adaptions
+branches:
+  only:
+  - master
+# build script
+script:
+- npm run build
