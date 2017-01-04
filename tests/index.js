@@ -88,6 +88,7 @@ describe('OPTIONS', () => {
 						catch(err) {
 							_err = err
 						}
+
 						assert.equal(_err.message.indexOf('\'keymap.mykey\' not found or invalid') !== -1, true)
 						done()
 					})
