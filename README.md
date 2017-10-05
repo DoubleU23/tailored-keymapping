@@ -6,40 +6,6 @@
 [![devDependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/dev-status.svg)](https://david-dm.org/doubleu23/tailored-keymapping?type=dev)
 [![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
 
-
-## Examples
-```JavaScript
-import KeyMapping from 'tailored-keymapping'
-// create instance with keyMap
-const keyMapping = new KeyMapping({foo: 'bar'})
-
-// basic flat keymap
-let dataMapped = keyMapping.map({foo: 'foo_content'})
-console.log(dataMapped) // => {bar: 'foo_content', foo: 'foo_content'}
-
-// basic deep keymap
-keyMapping.setKeymap({sub: {subsub: {foo: 'bar'}}})
-dataMapped = keyMapping.map(
-    {foo: 'foo_content'}
-,   {   keymapTree: ['sub', 'subsub']
-    ,   onlyMappedVars: true
-    }
-)
-console.log(dataMapped) // => {bar: 'foo_content'}
-
-// custom functions
-keyMapping.setKeymap({
-    'newKey': (data) => data.foo+'-'+data.bar
-})
-dataMapped = keyMapping.map(
-    {foo: 'foo', bar: 'bar'} // data2map
-,   {onlyMappedVars: true}  // options or callback
-)
-console.log(datMapped) // => {newKey: 'foo-bar'}
-
-```
-> for more examples have a look at the mocha tests
-
 ## Usage
     npm install tailored-keymapping --save
 
@@ -100,6 +66,39 @@ mappedData = keyMapping.map(payload, (data)=>newData)
 ,   callback:       null    // mutate data after mapping
 }
 ```
+
+## Examples
+```JavaScript
+import KeyMapping from 'tailored-keymapping'
+// create instance with keyMap
+const keyMapping = new KeyMapping({foo: 'bar'})
+
+// basic flat keymap
+let dataMapped = keyMapping.map({foo: 'foo_content'})
+console.log(dataMapped) // => {bar: 'foo_content', foo: 'foo_content'}
+
+// basic deep keymap
+keyMapping.setKeymap({sub: {subsub: {foo: 'bar'}}})
+dataMapped = keyMapping.map(
+    {foo: 'foo_content'}
+,   {   keymapTree: ['sub', 'subsub']
+    ,   onlyMappedVars: true
+    }
+)
+console.log(dataMapped) // => {bar: 'foo_content'}
+
+// custom functions
+keyMapping.setKeymap({
+    'newKey': (data) => data.foo+'-'+data.bar
+})
+dataMapped = keyMapping.map(
+    {foo: 'foo', bar: 'bar'} // data2map
+,   {onlyMappedVars: true}  // options or callback
+)
+console.log(datMapped) // => {newKey: 'foo-bar'}
+
+```
+> for more examples have a look at the mocha tests
 
 ## Roadmap
 * 0.2.0     - finish basic tests
