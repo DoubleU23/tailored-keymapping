@@ -1,5 +1,10 @@
-# tailored-keymapping [![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping) [![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
-map objectKeys with given keyMap
+# tailored-keymapping 
+> **map objectKeys with given keyMap**
+
+[![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping)
+[![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping) [![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
+[![devDependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/dev-status.svg)](https://david-dm.org/doubleu23/tailored-keymapping?type=dev)
+[![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
 
 
 ## Examples
