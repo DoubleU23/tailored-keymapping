@@ -1,7 +1,10 @@
 version: 1.0.{build}
 
 image: Ubuntu1804
-stack: node 9.6
+matrix
+	- stack: node 6
+    - stack: node 7
+	- stack: node 8
 
 platform:
     - x86
