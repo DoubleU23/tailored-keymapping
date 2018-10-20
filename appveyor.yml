@@ -3,12 +3,7 @@ version: 1.0.{build}
 image: Ubuntu1804
 platform: x86
 
-matrix:
-    - nodejs_version: 7
-    - nodejs_version: 8
-    - nodejs_version: 9.6
-
-stack: node $nodejs_version
+stack: node 8
 
 install:
     - sh: npm install
