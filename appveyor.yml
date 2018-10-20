@@ -10,8 +10,8 @@ environment:
 
 install:
     - ps: Install-Product node $env:nodejs_version
-    - sh: npm install
+    - ps: npm install
 build_script:
-    - sh: npm run build
+    - ps: npm run build
 test_script:
-    - sh: npm run test
+    - ps: npm run test
