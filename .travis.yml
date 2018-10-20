@@ -5,6 +5,7 @@ node_js: '5.7'
 branches:
   only:
   - master
+  - /^greenkeeper/.*$/
 # build script
 script:
 - npm run build
