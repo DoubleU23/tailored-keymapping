@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha tests/index.js --require tests/utils/babel-register.js",
     "bugs": "mocha tests/bugs.js --require tests/utils/babel-register.js",
-    "build": "babel-cli src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
+    "build": "babel src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "lodash": "^4.6.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
