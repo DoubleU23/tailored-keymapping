@@ -3,7 +3,7 @@ version: 1.0.{build}
 image: Ubuntu1804
 platform: x86
 
-stack: node 8
+stack: node 7
 
 install:
     - sh: npm install
