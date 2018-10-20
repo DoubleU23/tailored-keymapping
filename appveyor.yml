@@ -4,9 +4,9 @@ image: Ubuntu1804
 platform: x86
 stack:
     matrix:
-	    - stack: node 7
-	    - stack: node 8
-		- stack: node 9.6
+        - stack: node 7
+        - stack: node 8
+        - stack: node 9.6
 
 install:
     - sh: npm install
