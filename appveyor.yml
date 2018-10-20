@@ -7,8 +7,6 @@ matrix:
     - node: 7
     - node: 8
 
-stack: node $env:
-
 platform:
     - x86
 
