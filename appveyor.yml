@@ -7,8 +7,6 @@ matrix:
     - nodejs_version: 7
     - nodejs_version: 8
     - nodejs_version: 9.6
-    fast_finish: true
-
 
 stack: node $nodejs_version
 
