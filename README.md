@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping)
 [![Build status](https://ci.appveyor.com/api/projects/status/3afny9b8q526th4o/branch/master?svg=true)](https://ci.appveyor.com/project/DoubleU23/tailored-keymapping/branch/master)
-[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/DoubleU23/tailored-keymapping.svg)](https://greenkeeper.io/)
