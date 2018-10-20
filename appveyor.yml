@@ -1,17 +1,20 @@
 version: 1.0.{build}
 
 image: Ubuntu1804
-matrix:
-  stack:
-    - node: 6
-    - node: 7
-    - node: 8
+environment:
+  matrix:
+      - node_version: 6
+      - node_version: 7
+      - node_version: 8
+	  - node_version: latest 
 
 platform:
     - x86
 
 install:
-    - sh: npm install
+    - sh: npm install -g n
+	- sh: n $env:node_version
+	- sh: npm install
 build_script:
     - sh: npm run build
 test_script:
