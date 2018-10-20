@@ -7,9 +7,9 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/DoubleU23/tailored-keymapping.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
 [![dependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/status.svg)](https://david-dm.org/doubleu23/tailored-keymapping)
 [![devDependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/dev-status.svg)](https://david-dm.org/doubleu23/tailored-keymapping?type=dev)
-[![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
 
 ## Usage
     npm install tailored-keymapping --save
