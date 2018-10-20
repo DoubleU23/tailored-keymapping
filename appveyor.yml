@@ -3,9 +3,14 @@ version: 1.0.{build}
 image: Ubuntu1804
 platform: x86
 
-stack: node 7
+environment:
+  matrix:
+    - nodejs_version: "6"
+    - nodejs_version: "7"
+    - nodejs_version: "latest"
 
 install:
+    - ps: Install-Product node $env:nodejs_version
     - sh: npm install
 build_script:
     - sh: npm run build
