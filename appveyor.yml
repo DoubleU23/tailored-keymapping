@@ -1,7 +1,5 @@
 version: 1.0.{build}
 
-platform: x86
-
 environment:
   matrix:
     - nodejs_version: "6"
@@ -9,7 +7,7 @@ environment:
     - nodejs_version: "latest"
 
 install:
-    - ps: Install-Product node $env:nodejs_version
+    - ps: Install-Product node $env:nodejs_version x86
     - ps: npm install
 build_script:
     - ps: npm run build
