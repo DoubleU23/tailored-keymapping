@@ -1,11 +1,13 @@
 # env settings
 language: node_js
-node_js: '5.7'
+node_js: 8
 # travis script adaptions
 branches:
   only:
   - master
+  - development
   - /^greenkeeper/.*$/
 # build script
 script:
+- npm run test
 - npm run build
