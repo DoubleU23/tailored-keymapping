@@ -2,16 +2,15 @@ version: 1.0.{build}
 
 image: Ubuntu1804
 platform: x86
-environment:
-    matrix:
+
+matrix:
+    fast_finish: true
+    environment:
         - nodejs_version: 7
         - nodejs_version: 8
         - nodejs_version: 9.6
 
 stack: node $env:nodejs_version
-
-matrix:
-    fast_finish: true
 
 install:
     - sh: npm install
