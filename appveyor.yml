@@ -2,9 +2,12 @@ version: 1.0.{build}
 
 image: Ubuntu1804
 matrix:
-    - stack: node 6
-    - stack: node 7
-    - stack: node 8
+  stack:
+    - node: 6
+    - node: 7
+    - node: 8
+
+stack: node $env:
 
 platform:
     - x86
