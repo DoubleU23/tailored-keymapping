@@ -2,9 +2,14 @@
 > **map objectKeys with given keyMap**
 
 [![Build Status](https://travis-ci.org/DoubleU23/tailored-keymapping.svg?branch=master)](https://travis-ci.org/DoubleU23/tailored-keymapping)
+[![Build status](https://ci.appveyor.com/api/projects/status/3afny9b8q526th4o/branch/master?svg=true)](https://ci.appveyor.com/project/DoubleU23/tailored-keymapping/branch/master)
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/DoubleU23/tailored-keymapping.svg)](https://greenkeeper.io/)
 [![dependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/status.svg)](https://david-dm.org/doubleu23/tailored-keymapping)
 [![devDependencies Status](https://david-dm.org/doubleu23/tailored-keymapping/dev-status.svg)](https://david-dm.org/doubleu23/tailored-keymapping?type=dev)
-[![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping) [![Greenkeeper badge](https://badges.greenkeeper.io/DoubleU23/tailored-keymapping.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/npm/tailored-keymapping/badge.svg)](https://snyk.io/test/npm/tailored-keymapping)
 
 ## Usage
     npm install tailored-keymapping --save
