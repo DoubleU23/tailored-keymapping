@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha tests/index.js --require tests/utils/babel-register.js",
     "bugs": "mocha tests/bugs.js --require tests/utils/babel-register.js",
-    "build": "babel src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
+    "build": "babel-cli src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
   },
   "repository": {
     "type": "git",
@@ -30,9 +30,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.1.2",
     "babel-eslint": "^10.0.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-promise": "^4.0.1",
