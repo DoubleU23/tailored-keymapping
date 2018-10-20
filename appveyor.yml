@@ -13,8 +13,8 @@ platform:
 
 install:
     - sh: npm install -g n
-	- sh: n $env:node_version
-	- sh: npm install
+    - sh: n $env:node_version
+    - sh: npm install
 build_script:
     - sh: npm run build
 test_script:
