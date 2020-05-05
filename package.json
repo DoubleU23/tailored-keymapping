@@ -7,7 +7,9 @@
   "scripts": {
     "test": "mocha tests/index.js --require tests/utils/babel-register.js",
     "bugs": "mocha tests/bugs.js --require tests/utils/babel-register.js",
-    "build": "babel src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps"
+    "build": "babel src/TailoredKeymapping.class.js --out-file dist/TailoredKeymapping.class.js --source-maps",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,8 @@
   "homepage": "https://github.com/DoubleU23/tailored-keymapping#readme",
   "dependencies": {
     "eslint": "^5.7.0",
-    "lodash": "^4.6.0"
+    "lodash": "^4.6.0",
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -41,5 +44,6 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.0.3"
-  }
+  },
+  "snyk": true
 }
